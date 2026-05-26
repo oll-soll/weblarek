@@ -1,4 +1,4 @@
-import { IProduct } from './../../../types/index';
+import { IProduct } from "../../types";
 
 export class CatalogModel {
     protected items: IProduct[];

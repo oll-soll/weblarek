@@ -21,6 +21,7 @@ export interface IBuyer {
     address: string;
 }
 export interface IProductsResponse {
+    total: number;
     items: IProduct[];
 }
 export interface IOrderResponse {
@@ -32,5 +33,6 @@ export interface IOrderRequest {
     email: string;
     phone: string;
     address: string;
+    total: number;
     items: string[];
 }

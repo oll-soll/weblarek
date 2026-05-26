@@ -1,10 +1,10 @@
-import { CatalogModel } from './components/base/Models/CatalogModel';
+import { CatalogModel } from './components/Models/CatalogModel';
 import './scss/styles.scss';
 import { apiProducts } from './utils/data';
-import { BasketModel } from './components/base/Models/BasketModel';
-import { BuyerModel } from './components/base/Models/BuyerModel';
+import { BasketModel } from './components/Models/BasketModel';
+import { BuyerModel } from './components/Models/BuyerModel';
 import { Api } from './components/base/Api';
-import { ApiClient } from './components/base/Models/ApiClient';
+import { ApiClient } from './components/Models/ApiClient';
 import { API_URL } from './utils/constants';
 
 const productsModel = new CatalogModel();

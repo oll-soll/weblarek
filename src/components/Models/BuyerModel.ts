@@ -1,5 +1,4 @@
-import { TPayment } from "../../../types";
-import { IBuyer } from "../../../types";
+import { TPayment, IBuyer } from "../../types";
 
 export class BuyerModel {
     payment: TPayment | null;
