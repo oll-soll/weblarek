@@ -21,6 +21,8 @@ export class Api {
     }
 
     get<T extends object>(uri: string) {
+        console.log('--- ОТЛАДКА АДРЕСА ---:', this.baseUrl + uri);
+        
         return fetch(this.baseUrl + uri, {
             ...this.options,
             method: 'GET'
