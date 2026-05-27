@@ -1,5 +1,7 @@
 import { TPayment, IBuyer } from "../../types";
 
+type ValidationErrors = Partial<Record<keyof IBuyer, string>>;
+
 export class BuyerModel {
     payment: TPayment | null;
     address: string;
@@ -33,8 +35,8 @@ export class BuyerModel {
         this.email = '';
     }
 
-    validate(): Record<string, string> {
-        const errors: Record<string, string> = {};
+    validate(): ValidationErrors {
+        const errors: ValidationErrors = {};
 
         if (!this.payment) {
             errors.payment = 'Не выбран способ оплаты';
