@@ -13,8 +13,8 @@ export interface ICardItemActions extends ICardActions{
 
 export class CardItem extends Card {
     
-    categoryElement: HTMLElement;
-    imageElement: HTMLImageElement;
+    protected categoryElement: HTMLElement;
+    protected imageElement: HTMLImageElement;
 
     constructor(container: HTMLElement, actions?: ICardItemActions) {
         super(container);
