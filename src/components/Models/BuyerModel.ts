@@ -1,4 +1,5 @@
 import { TPayment, IBuyer } from "../../types";
+import { IEvents } from "../base/Events";
 
 type ValidationErrors = Partial<Record<keyof IBuyer, string>>;
 
@@ -8,7 +9,7 @@ export class BuyerModel {
     phone: string;
     email: string;
 
-    constructor() {
+    constructor(protected events: IEvents) {
         this.payment = null;
         this.address = '';
         this.phone = '';
@@ -17,6 +18,11 @@ export class BuyerModel {
 
     setField(field: keyof BuyerModel, value: string | TPayment): void {
         (this as any)[field] = value;
+
+        this.events.emit('buyer:changed', {
+            data: this.getData(),
+            errors: this.validate()
+        });
     }
 
     getData(): IBuyer {
@@ -33,6 +39,11 @@ export class BuyerModel {
         this.address = '';
         this.phone = '';
         this.email = '';
+
+        this.events.emit('buyer:changed', {
+            data: this.getData(),
+            errors: this.validate()
+        });
     }
 
     validate(): ValidationErrors {
