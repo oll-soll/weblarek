@@ -40,29 +40,32 @@ export class BuyerModel {
         this.phone = '';
         this.email = '';
 
-        this.events.emit('buyer:changed', {
-            data: this.getData(),
-            errors: this.validate()
-        });
+        this.events.emit('buyer:changed');
     }
 
     validate(): ValidationErrors {
         const errors: ValidationErrors = {};
 
         if (!this.payment) {
-            errors.payment = 'Не выбран способ оплаты';
+            errors.payment = 'Необходимо выбрать способ оплаты';
         }
 
         if (!this.address) {
-            errors.address = 'Укажите адрес доставки';
+            errors.address = 'Необходимо указать адрес';
         }
 
+        const phoneCheck = this.phone ? this.phone.replace(/\D/g, '').length : 0;
         if (!this.phone) {
             errors.phone = 'Укажите номер телефона';
+        } else if (phoneCheck < 10) {
+            errors.phone = 'Некорректный номер телефона';
         }
 
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!this.email) {
-            errors.email = 'Укажите email';
+            errors.email = 'Пустой email';
+        } else if (!emailRegex.test(this.email)) {
+            errors.email = 'Некорректный формат email';
         }
 
         return errors;
