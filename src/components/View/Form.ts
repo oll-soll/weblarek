@@ -7,6 +7,7 @@ export interface IFormData {
 
 export interface IFormActions {
     onSubmit: () => void;
+    onInputChange?: (field: string, value: string) => void;
 }
 
 export class Form extends Component<IFormData> {
@@ -28,8 +29,14 @@ export class Form extends Component<IFormData> {
             }
         });
 
-        container.addEventListener('input', (event) => {})
-    }
+        container.addEventListener('input', (event) => {
+            const target = event.target as HTMLInputElement;
+            
+            if (actions?.onInputChange) {
+                actions.onInputChange(target.name, target.value);
+            }
+})
+}
 
     set errors(value: string) {
         this.errorsElement.textContent = value;

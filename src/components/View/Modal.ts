@@ -17,7 +17,7 @@ export class Modal extends Component<IModalData> {
         
         super(container)
 
-        this.modalContent = container.querySelector('.modal__container')!;
+        this.modalContent = container.querySelector('.modal__content')!;
         this.modalButton = container.querySelector('.modal__close')!;
 
         if (actions?.onModalClose) {

@@ -30,7 +30,7 @@ export class CardItem extends Card {
     set category(value: string) {
         this.categoryElement.textContent = value;
 
-        this.categoryElement.className = '.card__category';
+        this.categoryElement.className = 'card__category';
 
         if (categoryMap && value in categoryMap) {
             const categoryClass = categoryMap[value as keyof typeof categoryMap];

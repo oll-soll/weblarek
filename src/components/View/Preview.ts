@@ -52,5 +52,11 @@ export class Preview extends Card {
 
     set buttonText(value: string) {
         this.buttonPreview.textContent = value;
+
+        if (value === 'Недоступно') {
+            this.buttonPreview.disabled = true;
+        } else {
+            this.buttonPreview.disabled = false;
+        }
     }
 }

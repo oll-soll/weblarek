@@ -30,6 +30,7 @@ export class Basket extends Component<IBasketData> {
     set items(value: HTMLElement[]) {
         if (value.length > 0) {
             this.listElement.replaceChildren(...value);
+            this.basketButton.removeAttribute('disabled');
         } else {
             const emptyNotice = document.createElement('p');
             emptyNotice.textContent = 'Корзина пуста';
