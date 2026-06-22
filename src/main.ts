@@ -90,6 +90,13 @@ const cardPreviewElement = cloneTemplate(cardPreviewTemplate);
     }
 });
 
+const successTemplate = document.querySelector('#success') as HTMLTemplateElement;
+    const successOrder = new OrderSuccess(cloneTemplate(successTemplate), {
+        onOrderSuccessClose: () =>{
+            modal.close();
+        }
+    });
+
 events.on('catalog:changed', (items: IProduct[]) => {
     const cardsArray: HTMLElement[] = []; 
         for (const item of items) {
@@ -222,13 +229,6 @@ events.on('order:submit', () => {
 
     apiClient.postOrder(orderData)
         .then((res) => {
-            const successTemplate = document.querySelector('#success') as HTMLTemplateElement;
-            const successOrder = new OrderSuccess(cloneTemplate(successTemplate), {
-                onOrderSuccessClose: () =>{
-                    modal.close();
-                }
-            });
-
             successOrder.total = res.total;
 
             baskModel.clear();
