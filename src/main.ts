@@ -83,6 +83,13 @@ const contactsForm = new Contacts(cloneTemplate(contactsTemplate), {
     }
 });
 
+const cardPreviewElement = cloneTemplate(cardPreviewTemplate);
+    const previewCard = new Preview(cardPreviewElement, {
+        onButtonPreview: () => {
+            events.emit('preview:submit');
+    }
+});
+
 events.on('catalog:changed', (items: IProduct[]) => {
     const cardsArray: HTMLElement[] = []; 
         for (const item of items) {
@@ -107,22 +114,22 @@ events.on('catalog:changed', (items: IProduct[]) => {
 
 events.on('card:select', (item: IProduct) => {
     productsModel.setPreview(item);
-})
+});
 
-events.on('preview:changed', (item: IProduct) => {
-    const cardPreviewElement = cloneTemplate(cardPreviewTemplate);
-    const previewCard = new Preview(cardPreviewElement, {
-        onButtonPreview: () => {
-            if (baskModel.hasItem(item.id)) {
-                baskModel.removeItem(item.id);
+events.on('preview:submit', () => {
+    const previewItem = productsModel.getPreview();
+    if (!previewItem) return;
+
+    if (baskModel.hasItem(previewItem.id)) {
+                baskModel.removeItem(previewItem.id);
                 previewCard.buttonText = 'В корзину';
             } else {
-                baskModel.addItem(item);
+                baskModel.addItem(previewItem);
                 previewCard.buttonText = 'Удалить из корзины';
             }
-        }
-    });
+});
 
+events.on('preview:changed', (item: IProduct) => {
     previewCard.title = item.title;
     previewCard.price = item.price;
     previewCard.image = CDN_URL + item.image;
