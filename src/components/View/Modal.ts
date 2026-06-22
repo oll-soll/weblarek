@@ -20,15 +20,21 @@ export class Modal extends Component<IModalData> {
         this.modalContent = container.querySelector('.modal__content')!;
         this.modalButton = container.querySelector('.modal__close')!;
 
-        if (actions?.onModalClose) {
-            this.modalButton.addEventListener('click', actions.onModalClose);
-        }
-
-        container.addEventListener('click', (event) => {
-            if (event.target === container && actions?.onModalClose) {
+        this.modalButton.addEventListener('click', () => {
+            this.close();
+            if (actions?.onModalClose) {
                 actions.onModalClose();
             }
         })
+
+        container.addEventListener('click', (event) => {
+            if (event.target === container) {
+                this.close();
+                if (actions?.onModalClose) {
+                    actions.onModalClose();
+                }
+            }
+        });
     }
 
     set content(value: HTMLElement) {

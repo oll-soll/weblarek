@@ -30,11 +30,7 @@ const api = new Api(API_URL);
 const apiClient = new ApiClient(api);
 
 const modalContainer = document.querySelector('#modal-container') as HTMLElement;
-const modal = new Modal(modalContainer, {
-    onModalClose: () => {
-        modal.close();
-    }
-})
+const modal = new Modal(modalContainer);
 
 const basketTemplate = document.querySelector('#basket') as HTMLTemplateElement;
 const basket = new Basket(cloneTemplate(basketTemplate), {
