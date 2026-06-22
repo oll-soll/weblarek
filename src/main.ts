@@ -89,7 +89,7 @@ events.on('catalog:changed', (items: IProduct[]) => {
             const cardElement = cloneTemplate(cardCatalogTemplate);
             const card = new CardItem(cardElement, {
                 onItemOpen: () => {
-                    productsModel.setPreview(item);
+                    events.emit('card:select', item);
                 }
             });
 
@@ -104,6 +104,10 @@ events.on('catalog:changed', (items: IProduct[]) => {
 
     gallery.catalog = cardsArray;
 });
+
+events.on('card:select', (item: IProduct) => {
+    productsModel.setPreview(item);
+})
 
 events.on('preview:changed', (item: IProduct) => {
     const cardPreviewElement = cloneTemplate(cardPreviewTemplate);
