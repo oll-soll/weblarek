@@ -127,10 +127,13 @@ events.on('preview:changed', (item: IProduct) => {
 
     if (item.price === null) {
         previewCard.buttonText = 'Недоступно';
+        previewCard.disabledButton = true;
     } else if (baskModel.hasItem(item.id)) {
         previewCard.buttonText = 'Удалить из корзины';
+        previewCard.disabledButton = false;
     } else {
         previewCard.buttonText = 'Купить';
+        previewCard.disabledButton = false;
     }
     
     modal.content = previewCard.render();
