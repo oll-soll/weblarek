@@ -190,8 +190,15 @@ events.on('buyer:changed', () => {
     const orderErrors = errors.payment || errors.address;
     orderForm.valid = !orderErrors;
     
+    if(errors.address) {
+        orderForm.errors = 'Необходимо указать адрес';
+    } else {
+        orderForm.errors = '';
+    }
+
     const contactsErrors = errors.email || errors.phone;
     contactsForm.valid = !contactsErrors;
+    contactsForm.errors = '';
 
     const currentData = byModel.getData();
     orderForm.payment = currentData.payment;
