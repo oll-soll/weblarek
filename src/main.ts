@@ -194,18 +194,13 @@ events.on('contacts:open', () => {
 events.on('buyer:changed', () => {
     const errors = byModel.validate();
 
-    const orderErrors = errors.payment || errors.address;
-    orderForm.valid = !orderErrors;
-    
-    if(errors.address) {
-        orderForm.errors = 'Необходимо указать адрес';
-    } else {
-        orderForm.errors = '';
-    }
+    const orderErrors = [errors.address, errors.payment].filter(Boolean).join('; ');
+    orderForm.errors = orderErrors;
+    orderForm.valid = orderErrors === '';
 
-    const contactsErrors = errors.email || errors.phone;
-    contactsForm.valid = !contactsErrors;
-    contactsForm.errors = '';
+    const contactsErrors = [errors.email, errors.phone].filter(Boolean).join('; ');
+    contactsForm.errors = contactsErrors;
+    contactsForm.valid = contactsErrors === '';
 
     const currentData = byModel.getData();
     orderForm.payment = currentData.payment;

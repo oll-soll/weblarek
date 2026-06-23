@@ -1,7 +1,7 @@
 import { TPayment, IBuyer } from "../../types";
 import { IEvents } from "../base/Events";
 
-type ValidationErrors = Partial<Record<string, boolean>>;
+type ValidationErrors = Partial<Record<keyof IBuyer, string>>;
 
 export class BuyerModel {
     payment: TPayment | null;
@@ -44,28 +44,28 @@ export class BuyerModel {
     }
 
     validate(): ValidationErrors {
-        const errors: ValidationErrors = {};
+    const errors: ValidationErrors = {};
 
         if (!this.payment) {
-            errors.payment = true;
+            errors.payment = 'Необходимо выбрать способ оплаты';
         }
 
         if (!this.address) {
-            errors.address = true;
+            errors.address = 'Необходимо указать адрес';
         }
 
         const phoneCheck = this.phone ? this.phone.replace(/\D/g, '').length : 0;
         if (!this.phone) {
-            errors.phone = true;
+            errors.phone = 'Укажите номер телефона';
         } else if (phoneCheck < 10) {
-            errors.phone = true;
+            errors.phone = 'Некорректный номер телефона';
         }
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!this.email) {
-            errors.email = true;
+            errors.email = 'Пустой email';
         } else if (!emailRegex.test(this.email)) {
-            errors.email = true;
+            errors.email = 'Некорректный формат email';
         }
 
         return errors;
